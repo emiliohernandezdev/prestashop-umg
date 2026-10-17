@@ -1,5 +1,5 @@
 services:
-  # Servicio 1: Base de datos MySQL Privada
+  # Servicio 1: Base de datos MySQL Privada (Sin disco persistente)
   - type: pserv
     name: mysql-prestashop
     env: docker
@@ -14,10 +14,6 @@ services:
         value: prestashop_user
       - key: MYSQL_PASSWORD
         value: prestashop_password_123
-    disk:
-      name: mysql-data
-      mountPath: /var/lib/mysql
-      sizeGB: 1
 
   # Servicio 2: Aplicación PrestaShop
   - type: web
