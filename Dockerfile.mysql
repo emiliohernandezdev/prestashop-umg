@@ -1,0 +1,4 @@
+FROM mysql:8.0
+
+# Exponer el puerto predeterminado de MySQL
+EXPOSE 3306
