@@ -1,4 +1,4 @@
 FROM mysql:8.0
 
-# Exponer el puerto predeterminado de MySQL
-EXPOSE 3306
+# Usar el plugin de autenticación clásico para evitar problemas con PHP/PrestaShop
+CMD ["mysqld", "--default-authentication-plugin=mysql_native_password"]

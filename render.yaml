@@ -1,52 +1,47 @@
 services:
-  # Servidor de Base de Datos MySQL
+  # Servicio 1: Base de datos MySQL Privada
   - type: pserv
-    name: prestashop-db
+    name: mysql-prestashop
     env: docker
-    dockerfilePath: ./Dockerfile.mysql
-    repo: https://github.com/emiliohernandezdev/prestashop-umg.git
-    plan: starter # O el plan que prefieras
-    disk:
-      name: mysql-data
-      mountPath: /var/lib/mysql
-      sizeGB: 10
+    dockerfilePath: Dockerfile.mysql
+    plan: free
     envVars:
       - key: MYSQL_ROOT_PASSWORD
-        value: RootPasswordSegura123!
+        value: root_password_123
       - key: MYSQL_DATABASE
         value: prestashop
       - key: MYSQL_USER
         value: prestashop_user
       - key: MYSQL_PASSWORD
-        value: PrestaPassword123!
-
-  # Servicio Web de PrestaShop
-  - type: web
-    name: prestashop-web
-    env: docker
-    dockerfilePath: ./Dockerfile
-    repo: https://github.com/emiliohernandezdev/prestashop-umg.git
-    plan: starter
+        value: prestashop_password_123
     disk:
-      name: prestashop-files
-      mountPath: /var/www/html
-      sizeGB: 10
+      name: mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 1
+
+  # Servicio 2: Aplicación PrestaShop
+  - type: web
+    name: prestashop-umg
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    healthCheckPath: /
     envVars:
       - key: PORT
         value: 10000
       - key: DB_SERVER
-        value: prestashop-db:3306
+        value: mysql-prestashop:3306
       - key: DB_NAME
         value: prestashop
       - key: DB_USER
         value: prestashop_user
       - key: DB_PASSWD
-        value: PrestaPassword123!
+        value: prestashop_password_123
+      - key: PS_DOMAIN
+        value: prestashop-umg.onrender.com
       - key: PS_INSTALL_AUTO
         value: "1"
-      - key: PS_DOMAIN
-        generateValue: true
       - key: ADMIN_MAIL
         value: admin@ejemplo.com
       - key: ADMIN_PASSWD
-        value: AdminPasswordSegura123!
+        value: TuPasswordSeguro123
