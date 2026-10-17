@@ -4,7 +4,7 @@ services:
     name: prestashop-db
     env: docker
     dockerfilePath: ./Dockerfile.mysql
-    repo: https://github.com/tu-usuario/tu-repo # Cambia por la URL de tu repositorio
+    repo: https://github.com/emiliohernandezdev/prestashop-umg.git
     plan: starter # O el plan que prefieras
     disk:
       name: mysql-data
@@ -25,7 +25,7 @@ services:
     name: prestashop-web
     env: docker
     dockerfilePath: ./Dockerfile
-    repo: https://github.com/tu-usuario/tu-repo # Cambia por la URL de tu repositorio
+    repo: https://github.com/emiliohernandezdev/prestashop-umg.git
     plan: starter
     disk:
       name: prestashop-files
@@ -45,7 +45,7 @@ services:
       - key: PS_INSTALL_AUTO
         value: "1"
       - key: PS_DOMAIN
-        generateValue: true # Render asignará automáticamente la URL pública de tu web service
+        generateValue: true
       - key: ADMIN_MAIL
         value: admin@ejemplo.com
       - key: ADMIN_PASSWD
